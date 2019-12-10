@@ -67,13 +67,20 @@ var cities = [seattle, tokyo, dubai, paris, lima];
 var cityHolder = document.getElementById('city-holder');
 
 for(var j = 0; j < cities.length; j++) {
-  var newDiv = document.createElement('div');
-  newDiv.textContent = cities[j].name;
-  cityHolder.appendChild(newDiv);
+  // assigns variable to <p> tag
+  var newP = document.createElement('p');
+  // insert city name in <p> content
+  newP.textContent = cities[j].name;
+  // append <p> with content to cityHolder
+  cityHolder.appendChild(newP);
+  // create loop that goes through each open hour of day
   for(var i = 6; i < 19; i++) {
   // time + cookies sold in that hour
+  // create variable equal to each new line
     var newLi = document.createElement('li');
-    newLi.textContent = hrs[i - 6] + ': ' + Math.ceil(lima.cookiesPerHour());
+    // each line contecnt equal to hour of day and cookies sold in that hour
+    newLi.textContent = `${hrs[i - 6]}: ${Math.ceil(cities[j].cookiesPerHour())}`;
+    // append that content to city holder
     cityHolder.appendChild(newLi);
   }
 }
