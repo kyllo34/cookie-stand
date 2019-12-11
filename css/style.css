@@ -8,3 +8,7 @@ img {
 header {
   font-family: 'Lilita One', cursive;
 }
+td {
+  text-align: center;
+  border: 1px black solid;
+}

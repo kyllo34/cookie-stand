@@ -1,11 +1,10 @@
 'use strict';
 // hours of operation
 var hrs = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00pm', '2:00pm', '3:00pm', '4:00pm', '5:00pm', '6:00pm', '7:00pm'];
+// creates an array that will contain all city objects
 var allStores = [];
-
-var stores = [seattle, tokyo, dubai, paris, lima];
-
 // Object constructor for cityies that take in arguments
+// hrlyArray will store the hourly sales totals
 function City(name, minCustomer, maxCustomer, avgCookieSale) {
   this.name = name;
   this.minCustomer = minCustomer;
@@ -14,7 +13,7 @@ function City(name, minCustomer, maxCustomer, avgCookieSale) {
   this.hrlyArray = [];
   allStores.push(this);
 }
-// Creates city objects
+// Creates city objects from city contructor
 var seattle = new City('Seattle', 3, 18, 4.15);
 var tokyo = new City('Tokyo', 3, 24, 1.2);
 var dubai = new City('Dubai', 11, 38, 3.7);
@@ -28,7 +27,6 @@ City.prototype.getRandomCookieSale = function() {
 City.prototype.cookiesSoldHr = function() {
   return Math.ceil(this.getRandomCookieSale() * this.avgCookieSale);
 };
-
 // Stores cookies sold each hour for each city in an array
 for (var i = 0; i < hrs.length; i++) {
   for (var j = 0; j < allStores.length; j++) {
@@ -38,17 +36,40 @@ for (var i = 0; i < hrs.length; i++) {
 // Creates array that contains total cookies for all cities per hour
 function hrlyTotalFunction() {
   var hrlyTotalArray = [];
+  var grandTotal = 0;
   for (j = 0; j < hrs.length; j++) {
     var hrlyTotal = 0;
     for (i = 0; i < allStores.length; i++){
       hrlyTotal += allStores[i].hrlyArray[j];
     }
     hrlyTotalArray.push(hrlyTotal);
+    grandTotal += hrlyTotalArray[j];
   }
+  hrlyTotalArray.push(grandTotal);
   return hrlyTotalArray;
 }
-// Creates a method that renders the table
+// Assigns variable to table
 var tableHolder = document.getElementById('table-holder');
+
+// creates first row
+function firstRow() {
+  var cityRow = document.createElement('tr');
+  var cityData = document.createElement('td');
+  cityData.textContent = null; // Delete this later
+  cityRow.appendChild(cityData);
+  tableHolder.appendChild(cityRow);
+  for (var i = 0; i < hrs.length; i ++) {
+    var cityData = document.createElement('td');
+    cityData.textContent = hrs[i];
+    cityRow.appendChild(cityData);
+    tableHolder.appendChild(cityRow);
+  }
+  cityData = document.createElement('td');
+  cityData.textContent = 'Daily Location Total';
+  cityRow.appendChild(cityData);
+  tableHolder.appendChild(cityRow);
+}
+// Creates a method that renders the table
 City.prototype.render = function() {
   var dailyTotal = 0;
   var cityRow = document.createElement('tr');
@@ -68,7 +89,7 @@ City.prototype.render = function() {
   cityRow.appendChild(cityData);
   tableHolder.appendChild(cityRow);
 };
-
+// function that renders the last row
 function lastRow() {
   var hrlyTotalVariable = hrlyTotalFunction();
   var cityRow = document.createElement('tr');
@@ -85,6 +106,7 @@ function lastRow() {
 }
 
 // renders all city objects
+firstRow();
 for (i = 0; i < allStores.length; i ++){
   allStores[i].render();
 }
