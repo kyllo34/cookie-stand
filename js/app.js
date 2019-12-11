@@ -1,7 +1,6 @@
 'use strict';
 // hours of operation
 var hrs = ['6:00am', '7:00am', '8:00am', '9:00am', '10:00am', '11:00am', '12:00pm', '1:00pm', '2:00pm', '3:00pm', '4:00pm', '5:00pm', '6:00pm', '7:00pm'];
-var dailyTotal = 0;
 var allStores = [];
 
 var stores = [seattle, tokyo, dubai, paris, lima];
@@ -44,6 +43,7 @@ for (var i = 0; i < hrs.length; i++) {
 var tableHolder = document.getElementById('table-holder');
 City.prototype.render = function() {
   for (var i = 0; i < allStores.length; i++) {
+    var dailyTotal = 0;
     var cityRow = document.createElement('tr');
     var cityData = document.createElement('td');
     cityData.textContent = allStores[i].name;
@@ -54,8 +54,12 @@ City.prototype.render = function() {
       cityData.textContent = allStores[i].hrlyArray[j];
       cityRow.appendChild(cityData);
       tableHolder.appendChild(cityRow);
-      dailyTotal = 
+      dailyTotal += allStores[i].hrlyArray[j];
     }
+    cityData = document.createElement('td');
+    cityData.textContent = dailyTotal;
+    cityRow.appendChild(cityData);
+    tableHolder.appendChild(cityRow);
   }
 }
 
