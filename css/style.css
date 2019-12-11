@@ -1,0 +1,10 @@
+body {
+  background-color: rgb(253, 176, 167);
+}
+img {
+  opacity: 0.7;
+  width: 300px;
+}
+header {
+  font-family: 'Lilita One', cursive;
+}
