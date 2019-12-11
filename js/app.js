@@ -38,13 +38,16 @@ for (var i = 0; i < hrs.length; i++) {
 // Creates array that contains total cookies for all cities per hour
 function hrlyTotalFunction() {
   var hrlyTotalArray = [];
+  var grandTotal = 0;
   for (j = 0; j < hrs.length; j++) {
     var hrlyTotal = 0;
     for (i = 0; i < allStores.length; i++){
       hrlyTotal += allStores[i].hrlyArray[j];
     }
     hrlyTotalArray.push(hrlyTotal);
+    grandTotal += hrlyTotalArray[j];
   }
+  hrlyTotalArray.push(grandTotal);
   return hrlyTotalArray;
 }
 // Creates a method that renders the table
