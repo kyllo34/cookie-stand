@@ -19,6 +19,8 @@ var tokyo = new City('Tokyo', 3, 24, 1.2);
 var dubai = new City('Dubai', 11, 38, 3.7);
 var paris = new City('Paris', 20, 38, 2.3);
 var lima = new City('Lima', 2, 16, 4.6);
+
+
 // method that chooses a random number between the min and max customer
 City.prototype.getRandomCookieSale = function() {
   return Math.ceil(Math.random() * (this.maxCustomer - this.minCustomer) + this.minCustomer);
@@ -28,18 +30,21 @@ City.prototype.cookiesSoldHr = function() {
   return Math.ceil(this.getRandomCookieSale() * this.avgCookieSale);
 };
 // Stores cookies sold each hour for each city in an array
-for (var i = 0; i < hrs.length; i++) {
-  for (var j = 0; j < allStores.length; j++) {
-    allStores[j].hrlyArray[i] = allStores[j].cookiesSoldHr();
+City.prototype.randomHrlyArray = function() {
+  for (var j = 0; j < hrs.length; j++) {
+    this.hrlyArray[j] = this.cookiesSoldHr();
   }
-}
+  return this.hrlyArray;
+};
+
+
 // Creates array that contains total cookies for all cities per hour
 function hrlyTotalFunction() {
   var hrlyTotalArray = [];
   var grandTotal = 0;
-  for (j = 0; j < hrs.length; j++) {
+  for (var j = 0; j < hrs.length; j++) {
     var hrlyTotal = 0;
-    for (i = 0; i < allStores.length; i++){
+    for (var i = 0; i < allStores.length; i++){
       hrlyTotal += allStores[i].hrlyArray[j];
     }
     hrlyTotalArray.push(hrlyTotal);
@@ -59,7 +64,7 @@ function firstRow() {
   cityRow.appendChild(cityData);
   tableHolder.appendChild(cityRow);
   for (var i = 0; i < hrs.length; i ++) {
-    var cityData = document.createElement('td');
+    cityData = document.createElement('td');
     cityData.textContent = hrs[i];
     cityRow.appendChild(cityData);
     tableHolder.appendChild(cityRow);
@@ -97,21 +102,41 @@ function lastRow() {
   cityData.textContent = 'Totals';
   cityRow.appendChild(cityData);
   tableHolder.appendChild(cityRow);
-  for (i = 0; i < hrlyTotalVariable.length; i++) {
+  for (var i = 0; i < hrlyTotalVariable.length; i++) {
     cityData = document.createElement('td');
     cityData.textContent = hrlyTotalVariable[i];
     cityRow.appendChild(cityData);
     tableHolder.appendChild(cityRow);
   }
 }
-
-// renders all city objects
+// renders first row
 firstRow();
-for (i = 0; i < allStores.length; i ++){
-  allStores[i].render();
+renderTable();
+// renders all city table
+function renderTable() {
+  for (var i = 0; i < allStores.length; i++){
+    allStores[i].randomHrlyArray();
+    console.log(allStores[i]);
+    allStores[i].render();
+  }
 }
+// takes in event parameter to prevent the default
+function formSubmitted(event){
+// creates a new city based on customer input
+  var newCity = new City (document.getElementById('city-name').value, parseInt(document.getElementById('minimum-customers-per-hour').value), parseInt(document.getElementById('maximum-number-of-customers-per-hour').value), parseInt(document.getElementById('the-average-number-of-cookies-purchased-per-customer').value));
+  newCity.randomHrlyArray();
+  console.log(newCity);
+  event.preventDefault();
+}
+// renders last row
 lastRow();
 
+
+
+
+// creates a listener
+var formlistener = document.getElementById('new-location');
+formlistener.addEventListener('submit',formSubmitted);
 
 
 
