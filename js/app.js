@@ -34,11 +34,12 @@ for(var i = 0; i < stores.length; i++) {
   cityData.textContent = stores[i].name;
   cityRow.appendChild(cityData);
   tableHolder.appendChild(cityRow);
-  // for(var j = 0; j < hrs.length; j++) {
-  //   cityData.textContent = stores[i].cookiesSoldHr();
-  //   cityRow.appendChild(cityData);
-  //   tableHolder.appendChild(cityRow);
-  // }
+  for(var j = 0; j < hrs.length; j++) {
+    cityData = document.createElement('td');
+    cityData.textContent = stores[i].cookiesSoldHr();
+    cityRow.appendChild(cityData);
+    tableHolder.appendChild(cityRow);
+  }
 
 }
 
