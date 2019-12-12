@@ -10,5 +10,8 @@ header {
 }
 td {
   text-align: center;
-  border: 1px black solid;
+  border: 2px black solid;
+}
+label, input {
+  display: block;
 }
