@@ -50,7 +50,7 @@ function hrlyTotalFunction() {
   }
   hrlyTotalArray.push(grandTotal);
 }
-hrlyTotalFunction();
+
 // Assigns variable to table
 var tableHolder = document.getElementById('table-holder');
 
@@ -104,7 +104,6 @@ function lastRow() {
     cityData = document.createElement('td');
     cityData.textContent = hrlyTotalArray[i];
     cityRow.appendChild(cityData);
-    tableHolder.appendChild(cityRow);
   }
 }
 
@@ -113,6 +112,8 @@ firstRow();
 
 // renders table for the first time with original locations
 renderTable();
+
+hrlyTotalFunction();
 
 // renders all city table
 function renderTable() {
