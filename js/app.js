@@ -125,8 +125,14 @@ function renderTable() {
 // takes in event parameter to prevent the default
 function formSubmitted(event){
 // creates a new city based on customer input
-  var newCity = new City (document.getElementById('city-name').value, parseInt(document.getElementById('minimum-customers-per-hour').value), parseInt(document.getElementById('maximum-number-of-customers-per-hour').value), parseInt(document.getElementById('the-average-number-of-cookies-purchased-per-customer').value));
+  var newCity = new City (document.getElementById('city-name').value,
+    parseInt(document.getElementById('minimum-customers-per-hour').value),
+    parseInt(document.getElementById('maximum-number-of-customers-per-hour').value),
+    Number(document.getElementById('the-average-number-of-cookies-purchased-per-customer').value));
   newCity.randomHrlyArray();
+  newCity.render();
+
+  // TODO: re-render the footer row
   console.log(newCity);
   event.preventDefault();
 }
