@@ -20,7 +20,6 @@ var dubai = new City('Dubai', 11, 38, 3.7);
 var paris = new City('Paris', 20, 38, 2.3);
 var lima = new City('Lima', 2, 16, 4.6);
 
-
 // method that chooses a random number between the min and max customer
 City.prototype.getRandomCookieSale = function() {
   return Math.ceil(Math.random() * (this.maxCustomer - this.minCustomer) + this.minCustomer);
@@ -37,22 +36,21 @@ City.prototype.randomHrlyArray = function() {
   return this.hrlyArray;
 };
 
-
 // Creates array that contains total cookies for all cities per hour
+var hrlyTotalArray = [];
 function hrlyTotalFunction() {
-  var hrlyTotalArray = [];
   var grandTotal = 0;
   for (var j = 0; j < hrs.length; j++) {
     var hrlyTotal = 0;
     for (var i = 0; i < allStores.length; i++){
-      hrlyTotal += allStores[i].hrlyArray[j];
+      hrlyTotal = hrlyTotal + allStores[i].hrlyArray[j];
     }
     hrlyTotalArray.push(hrlyTotal);
     grandTotal += hrlyTotalArray[j];
   }
   hrlyTotalArray.push(grandTotal);
-  return hrlyTotalArray;
 }
+hrlyTotalFunction();
 // Assigns variable to table
 var tableHolder = document.getElementById('table-holder');
 
@@ -94,32 +92,36 @@ City.prototype.render = function() {
   cityRow.appendChild(cityData);
   tableHolder.appendChild(cityRow);
 };
+
 // function that renders the last row
 function lastRow() {
-  var hrlyTotalVariable = hrlyTotalFunction();
   var cityRow = document.createElement('tr');
   var cityData = document.createElement('td');
   cityData.textContent = 'Totals';
   cityRow.appendChild(cityData);
   tableHolder.appendChild(cityRow);
-  for (var i = 0; i < hrlyTotalVariable.length; i++) {
+  for (var i = 0; i < hrlyTotalArray.length; i++) {
     cityData = document.createElement('td');
-    cityData.textContent = hrlyTotalVariable[i];
+    cityData.textContent = hrlyTotalArray[i];
     cityRow.appendChild(cityData);
     tableHolder.appendChild(cityRow);
   }
 }
+
 // renders first row
 firstRow();
+
+// renders table for the first time with original locations
 renderTable();
+
 // renders all city table
 function renderTable() {
   for (var i = 0; i < allStores.length; i++){
     allStores[i].randomHrlyArray();
-    console.log(allStores[i]);
     allStores[i].render();
   }
 }
+
 // takes in event parameter to prevent the default
 function formSubmitted(event){
 // creates a new city based on customer input
@@ -128,6 +130,7 @@ function formSubmitted(event){
   console.log(newCity);
   event.preventDefault();
 }
+
 // renders last row
 lastRow();
 
