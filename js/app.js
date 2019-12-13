@@ -86,6 +86,7 @@ City.prototype.render = function() {
 function lastRow() {
   var cityRow = document.createElement('tr');
   var cityData = document.createElement('td');
+  cityRow.id = 'lastrow';
   cityData.textContent = 'Totals';
   cityRow.appendChild(cityData);
   tableHolder.appendChild(cityRow);
@@ -122,6 +123,8 @@ function formSubmitted(event){
   newCity.randomHrlyArray();
 
   newCity.render();
+  var removeRow = document.getElementById('lastrow');
+  removeRow.innerHTML = '';
   lastRow();
   // TODO: re-render the footer row
   event.preventDefault();
