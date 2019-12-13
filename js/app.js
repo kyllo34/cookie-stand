@@ -124,7 +124,7 @@ function formSubmitted(event){
 
   newCity.render();
   var removeRow = document.getElementById('lastrow');
-  removeRow.innerHTML = '';
+  removeRow.parentNode.removeChild(removeRow);
   lastRow();
   // TODO: re-render the footer row
   event.preventDefault();
