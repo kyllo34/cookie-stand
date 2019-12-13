@@ -29,27 +29,16 @@ City.prototype.cookiesSoldHr = function() {
   return Math.ceil(this.getRandomCookieSale() * this.avgCookieSale);
 };
 // Stores cookies sold each hour for each city in an array
+var hrlyTotalArray = new Array(hrs.length + 1).fill(0);
 City.prototype.randomHrlyArray = function() {
   for (var j = 0; j < hrs.length; j++) {
     this.hrlyArray[j] = this.cookiesSoldHr();
+    hrlyTotalArray[j] += this.hrlyArray[j];
+    hrlyTotalArray[hrs.length] += this.hrlyArray[j];
   }
-  return this.hrlyArray;
+  console.log(hrlyTotalArray);
+  return this.hrlyArray, hrlyTotalArray;
 };
-
-// Creates array that contains total cookies for all cities per hour
-var hrlyTotalArray = [];
-function hrlyTotalFunction() {
-  var grandTotal = 0;
-  for (var j = 0; j < hrs.length; j++) {
-    var hrlyTotal = 0;
-    for (var i = 0; i < allStores.length; i++){
-      hrlyTotal = hrlyTotal + allStores[i].hrlyArray[j];
-    }
-    hrlyTotalArray.push(hrlyTotal);
-    grandTotal += hrlyTotalArray[j];
-  }
-  hrlyTotalArray.push(grandTotal);
-}
 
 // Assigns variable to table
 var tableHolder = document.getElementById('table-holder');
@@ -97,6 +86,7 @@ City.prototype.render = function() {
 function lastRow() {
   var cityRow = document.createElement('tr');
   var cityData = document.createElement('td');
+  cityRow.id = 'lastrow';
   cityData.textContent = 'Totals';
   cityRow.appendChild(cityData);
   tableHolder.appendChild(cityRow);
@@ -113,7 +103,7 @@ firstRow();
 // renders table for the first time with original locations
 renderTable();
 
-hrlyTotalFunction();
+
 
 // renders all city table
 function renderTable() {
@@ -131,10 +121,12 @@ function formSubmitted(event){
     parseInt(document.getElementById('maximum-number-of-customers-per-hour').value),
     Number(document.getElementById('the-average-number-of-cookies-purchased-per-customer').value));
   newCity.randomHrlyArray();
-  newCity.render();
 
+  newCity.render();
+  var removeRow = document.getElementById('lastrow');
+  removeRow.parentNode.removeChild(removeRow);
+  lastRow();
   // TODO: re-render the footer row
-  console.log(newCity);
   event.preventDefault();
 }
 
