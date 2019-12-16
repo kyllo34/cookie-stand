@@ -28,6 +28,7 @@ label, input {
 }
 h2 {
   font-size: 30px;
+  text-decoration: underline;
 }
 div {
   padding: 5px;
@@ -49,7 +50,17 @@ div {
 #div2 {
   background-image: url("/img/fish.jpg");
   font-size: 25px;
+  text-shadow: 2px 2px 4px white;
+  font-style: bold;
 }
-#ul1 {
+.images {
+  width: 1000px;
+  height: 200px;
+  background-color: white;
+}
+.images > img {
+  height: 200px;
+  width: 247px;
+  opacity: 1;
 
 }
