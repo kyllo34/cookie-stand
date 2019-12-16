@@ -1,4 +1,5 @@
 body {
+  background-color: brown;
 }
 img {
   opacity: 0.7;
@@ -6,14 +7,25 @@ img {
   height: 75px;
   border-radius: 20px;
 }
+head > img {
+  display: inline-block;
+  opacity: 1;
+}
+h1 {
+  text-align: center;
+  width: 600px;
+  display: inline-block;
+  font-size: 80px;
+}
+
 header {
   font-family: 'Lilita One', cursive;
   font-size: 30px;
-  margin: auto;
   border-style: solid;
   border-color: teal;
   border-width: 2px;
   border-radius: 20px;
+  width: 1060px;
 }
 header.blocktext {
   margin-left: auto;
@@ -28,6 +40,7 @@ label, input {
 }
 h2 {
   font-size: 30px;
+  text-decoration: underline;
 }
 div {
   padding: 5px;
@@ -49,7 +62,19 @@ div {
 #div2 {
   background-image: url("/img/fish.jpg");
   font-size: 25px;
+  text-shadow: 2px 2px 4px white;
+  font-style: bold;
 }
-#ul1 {
-
+.images {
+  width: 1000px;
+  height: 200px;
+  background-color: white;
+}
+.images > img {
+  height: 200px;
+  width: 247px;
+  opacity: 1;
+}
+.div3 > ul > li {
+font-size: 20px;
 }
